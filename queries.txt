@@ -1,0 +1,53 @@
+
+Creating Tables:
+
+Students Table:
+
+CREATE TABLE students (
+	id SERIAL PRIMARY KEY,
+	first_name VARCHAR(50),
+	last_name VARCHAR(50),
+	email VARCHAR(100),
+	school_enrollment_date DATE
+)
+
+SELECT * from students, verified.
+
+Professors Table:
+
+CREATE TABLE professors(
+	professor_id SERIAL PRIMARY KEY,
+	first_name VARCHAR(50),
+	last_name VARCHAR(50),
+	department VARCHAR(50)
+)
+
+SELECT * from professors, verified
+
+
+Courses Table:
+
+CREATE TABLE courses(
+	course_id SERIAL PRIMARY KEY,
+	course_name VARCHAR(50),
+	course_description VARCHAR(50),
+	professor_id INTEGER,
+	FOREIGN KEY (professor_id) REFERENCES professors(professor_id)
+)
+
+SELECT * from courses, verified
+
+Enrollments Table:
+
+CREATE TABLE enrollments(
+	student_id INTEGER,
+	course_id INTEGER,
+	enrollment_date DATE,
+	FOREIGN KEY (student_id) REFERENCES students(student_id),
+	FOREIGN KEY (course_id) REFERENCES courses(course_id),
+	PRIMARY KEY(student_id, course_id)
+)
+
+
+
+
