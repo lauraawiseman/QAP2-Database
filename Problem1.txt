@@ -99,3 +99,43 @@ VALUES
 SELECT * from enrollments
 	
 
+Tasks:
+
+1. Write SQL Queries:
+
+- Retrieve full names of all students enrolled in Physics 101.
+
+SELECT CONCAT(students.first_name, ' ', students.last_name) AS full_names
+FROM students
+JOIN enrollments ON students.student_id = enrollments.student_id
+JOIN courses ON enrollments.course_id = courses.course_id
+WHERE courses.course_name='Physics 101';
+
+- Retrieve list of all courses along with professors full names:
+
+SELECT CONCAT(professors.first_name, ' ', professors.last_name) AS full_names, 
+       courses.course_name
+FROM courses
+JOIN professors ON courses.professor_id = professors.professor_id;
+
+- Retrieve all courses that have students enrolled in them:
+
+SELECT course_name
+FROM courses
+WHERE course_id IN (SELECT course_id FROM enrollments);
+
+2. Update Data:
+
+- Update a student email:
+
+UPDATE students
+SET email = 'jane.smith@updated.com'
+WHERE first_name ='Jane' AND last_name='Smith';
+
+
+3. Delete Data: 
+
+DELETE FROM enrollments
+WHERE student_id = 2 AND course_id=2
+
+
