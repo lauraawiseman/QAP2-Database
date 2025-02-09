@@ -49,7 +49,7 @@ PRIMARY KEY(order_id, product_id)
 SELECT * from order_items
 
 
-2. Insert Data
+2. Insert Data:
 
 Products:
 
@@ -101,3 +101,55 @@ VALUES
 	(4, 3, 1),
 	(5, 5, 1),
     (5, 5, 1);
+
+Tasks:
+
+1. Write SQL Queries:
+
+- Retrieve the names and stock quantities of all products.
+
+SELECT 
+products.product_name,
+products.stock_quantity
+FROM products
+
+- Retrieve the product names and quantities for one of the orders placed.
+
+SELECT 
+products.product_name,
+order_items.quantity
+FROM products
+JOIN order_items ON order_items.product_id = products.product_id
+WHERE order_items.order_id= 1;
+
+- Retrieve all orders placed by a specific customer (including the ID’s of what was ordered and the quantities).
+
+SELECT 
+orders.order_id,
+order_items.product_id,
+order_items.quantity
+FROM orders
+JOIN order_items ON orders.order_id = order_items.order_id
+WHERE orders.customer_id=1;
+
+
+2. Update Data:
+
+UPDATE products
+SET stock_quantity = stock_quantity - (
+	SELECT quantity
+	FROM order_items
+	WHERE product_id = 1 AND order_id = 1
+)
+WHERE product_id=1;
+
+- Updated the stock order 1, one Apple was ordered, this updated stock_quantity to 9.  
+
+
+3. Delete Data:
+
+DELETE FROM order_items
+WHERE order_id = 1;
+
+DELETE FROM orders 
+WHERE order_id = 1;
