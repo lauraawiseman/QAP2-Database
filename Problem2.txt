@@ -1,0 +1,49 @@
+Problem 2:
+
+Creating Tables: 
+
+Products:
+
+CREATE TABLE products(
+product_id SERIAL PRIMARY KEY,
+product_name VARCHAR(50),
+price DECIMAL, 
+stock_quantity INTEGER
+);
+
+SELECT * from products
+
+Customers: 
+
+CREATE TABLE customers(
+customer_id SERIAL PRIMARY KEY,
+first_name VARCHAR(50),
+last_name VARCHAR(50),
+email VARCHAR(50)
+);
+
+SELECT * from customers
+
+Orders:
+
+CREATE TABLE orders(
+order_id SERIAL PRIMARY KEY,
+customer_id INTEGER,
+FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+order_date DATE
+);
+
+SELECT * from orders
+
+Order Items:
+
+CREATE TABLE order_items(
+order_id INTEGER,
+FOREIGN KEY (order_id) REFERENCES orders(order_id),
+product_id INTEGER,
+FOREIGN KEY (product_id) REFERENCES products(product_id),
+quantity INTEGER,
+PRIMARY KEY(order_id, product_id)
+);
+
+SELECT * from order_items
