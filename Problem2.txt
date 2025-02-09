@@ -1,8 +1,8 @@
 Problem 2:
 
-Creating Tables: 
+1. Creating Tables: 
 
-Products:
+Products Table:
 
 CREATE TABLE products(
 product_id SERIAL PRIMARY KEY,
@@ -13,7 +13,7 @@ stock_quantity INTEGER
 
 SELECT * from products
 
-Customers: 
+Customers Table: 
 
 CREATE TABLE customers(
 customer_id SERIAL PRIMARY KEY,
@@ -24,7 +24,7 @@ email VARCHAR(50)
 
 SELECT * from customers
 
-Orders:
+Orders Table:
 
 CREATE TABLE orders(
 order_id SERIAL PRIMARY KEY,
@@ -35,7 +35,7 @@ order_date DATE
 
 SELECT * from orders
 
-Order Items:
+Order Items Table:
 
 CREATE TABLE order_items(
 order_id INTEGER,
@@ -47,3 +47,57 @@ PRIMARY KEY(order_id, product_id)
 );
 
 SELECT * from order_items
+
+
+2. Insert Data
+
+Products:
+
+INSERT INTO products(product_name,price, stock_quantity)
+VALUES 
+	('Apple','5.50','10'),
+	('Banana','6.00','8'),
+	('Pear','3.00','6'),
+	('Orange','2.00','10'),
+	('Lemon','4.00','7');
+	
+
+SELECT * from products
+
+Customers:
+
+INSERT INTO customers(first_name, last_name, email)
+VALUES
+	('Sarah', 'Walker', 'sarah.walker@example.com'),
+	('Chuck', 'Bartowski', 'chuck.bartowski@example.com'),
+	('Morgan', 'Grimes', 'morgan.grimes@example.com'),
+	('John', 'Casey', 'john.casey@example.com');
+
+SELECT * from customers
+
+Orders:
+
+INSERT INTO orders(customer_id, order_date)
+VALUES 
+	((SELECT customer_id FROM customers WHERE first_name='Sarah' AND last_name='Walker'), '2025-02-10'),
+	((SELECT customer_id FROM customers WHERE first_name='Chuck' AND last_name='Bartowski'), '2025-01-05'),
+	((SELECT customer_id FROM customers WHERE first_name='Morgan' AND last_name='Grimes'), '2025-01-30'),
+	((SELECT customer_id FROM customers WHERE first_name='John' AND last_name='Casey'), '2025-02-15'),
+	((SELECT customer_id FROM customers WHERE first_name='Sarah' AND last_name='Walker'), '2025-02-26');
+
+SELECT * FROM orders
+
+Order Items:
+
+INSERT INTO order_items(order_id, product_id, quantity)
+VALUES
+	(1, 1, 1),
+	(1, 2, 1),
+	(2, 2, 1),
+	(2, 3, 1),
+	(3, 4, 1),
+	(3, 5, 1),
+	(4, 1, 1),
+	(4, 3, 1),
+	(5, 5, 1),
+    (5, 5, 1);
