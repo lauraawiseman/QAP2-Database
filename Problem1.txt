@@ -124,6 +124,7 @@ SELECT course_name
 FROM courses
 WHERE course_id IN (SELECT course_id FROM enrollments);
 
+
 2. Update Data:
 
 - Update a student email:
